@@ -29,3 +29,25 @@
     <%= yield %>
   </body>
 </html>
+
+
+<!-- SCROLL ANIMATIONS -->
+<script>
+
+document.addEventListener("turbo:load", () => {
+
+  const elements = document.querySelectorAll('.reveal, .image-block');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  elements.forEach(el => observer.observe(el));
+
+});
+
+</script>
