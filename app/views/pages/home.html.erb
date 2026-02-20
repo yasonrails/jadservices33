@@ -1,225 +1,5 @@
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  :root {
-    --color-dark: #1a1a1a;
-    --color-light: #f8f7f5;
-    --color-beige: #e8e4df;
-    --color-green: #2d5d3f;
-    --color-burgundy: #6b3e3e;
-    --color-gold: #b8956a;
-    --color-text: #333;
-  }
-
-  body {
-    font-family: 'Georgia', 'Garamond', serif;
-    color: var(--color-text);
-    background-color: #fafaf8;
-  }
-
-  /* HERO SECTION */
-  .hero {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: linear-gradient(135deg, var(--color-light) 0%, #f0ede8 100%);
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="vines" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse"><path d="M 100 20 Q 120 60 100 100 Q 80 140 100 180" stroke="%232d5d3f" stroke-width="2" fill="none" opacity="0.15"/><circle cx="110" cy="40" r="8" fill="%236b3e3e" opacity="0.1"/><circle cx="115" cy="80" r="6" fill="%236b3e3e" opacity="0.1"/><circle cx="110" cy="120" r="7" fill="%236b3e3e" opacity="0.1"/></pattern></defs><rect width="1200" height="800" fill="none"/><rect width="1200" height="800" fill="url(%23vines)"/></svg>');
-    background-size: 400px 400px;
-    z-index: 1;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 700px;
-    text-align: center;
-    padding: 40px;
-  }
-
-  .hero h1 {
-    font-size: 3.5rem;
-    font-weight: 300;
-    letter-spacing: 2px;
-    line-height: 1.2;
-    margin-bottom: 20px;
-    color: var(--color-dark);
-  }
-
-  .hero-subtitle {
-    font-size: 1.2rem;
-    font-weight: 300;
-    line-height: 1.6;
-    color: var(--color-text);
-    margin-bottom: 30px;
-    letter-spacing: 0.5px;
-  }
-
-  .hero-zones {
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--color-green);
-    margin-bottom: 40px;
-    font-weight: 600;
-  }
-
-  .cta-button {
-    display: inline-block;
-    padding: 16px 48px;
-    background-color: var(--color-gold);
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    border: 2px solid var(--color-gold);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-
-  .cta-button:hover {
-    background-color: transparent;
-    color: var(--color-gold);
-  }
-
-  /* EXPERTISE SECTION */
-  .expertise {
-    padding: 100px 40px;
-    background-color: white;
-    margin-top: -1px;
-  }
-
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 300;
-    text-align: center;
-    margin-bottom: 60px;
-    letter-spacing: 1px;
-    color: var(--color-dark);
-  }
-
-  .expertise-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .expertise-card {
-    padding: 40px;
-    background-color: var(--color-light);
-    border-left: 4px solid var(--color-green);
-    transition: transform 0.3s ease;
-  }
-
-  .expertise-card:hover {
-    transform: translateY(-5px);
-  }
-
-  .expertise-card h3 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-    color: var(--color-green);
-    letter-spacing: 0.5px;
-  }
-
-  .expertise-card p {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--color-text);
-  }
-
-  /* TESTIMONIALS SECTION */
-  .testimonials {
-    padding: 100px 40px;
-    background: linear-gradient(135deg, #fafaf8 0%, #f0ede8 100%);
-  }
-
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .testimonial-card {
-    background-color: white;
-    padding: 40px;
-    border-top: 3px solid var(--color-burgundy);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  }
-
-  .testimonial-stars {
-    color: var(--color-gold);
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    letter-spacing: 2px;
-  }
-
-  .testimonial-text {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--color-text);
-    margin-bottom: 25px;
-    font-style: italic;
-  }
-
-  .testimonial-author {
-    font-weight: 600;
-    color: var(--color-green);
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
-  }
-
-  .testimonial-role {
-    font-size: 0.85rem;
-    color: #999;
-    margin-top: 5px;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .hero h1 {
-      font-size: 2rem;
-    }
-
-    .hero-subtitle {
-      font-size: 1rem;
-    }
-
-    .section-title {
-      font-size: 2rem;
-    }
-
-    .expertise, .testimonials {
-      padding: 60px 20px;
-    }
-  }
-</style>
-
 <!-- HERO SECTION -->
-<section class="hero">
+<section class="hero"> 
   <div class="hero-content">
     <h1>JAD SERVICES </h1>
     <h1>Expertise Viticole de Précision</h1>
@@ -228,7 +8,6 @@
     <a href="#contact" class="cta-button">Demander un devis</a>
   </div>
 </section>
-
 
 <!-- EXPERTISE SECTION -->
 <section class="expertise">
@@ -281,5 +60,43 @@
       <div class="testimonial-author">Sophie Mercier</div>
       <div class="testimonial-role">Responsable Production, Domaine Charente</div>
     </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Un service complet et adapté à nos besoins. Leur expertise dans les travaux en vert a considérablement amélioré la santé de nos vignes."</p>
+      <div class="testimonial-author">Jean-Paul Lefèvre</div>
+      <div class="testimonial-role">Vigneron, Gironde</div>
+    </div> 
+      <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Une équipe de confiance qui comprend les subtilités de notre terroir. Leur savoir-faire traditionnel combiné à une approche moderne est un atout précieux pour notre domaine."</p>
+      <div class="testimonial-author">Isabelle Martin</div>
+      <div class="testimonial-role">Directrice Générale, Domaine Charente</div>   
+    </div> 
   </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="contact">  <h2 class="section-title">Contactez-nous</h2>
+  <p style="text-align: center; margin-bottom: 40px;">Pour toute demande de devis ou d'information, n'hésitez pas à nous contacter. Nous sommes à votre disposition pour répondre à vos besoins viticoles avec professionnalisme et rigueur.</p>
+  <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+    <div style="max-width: 400px; width: 100%;">
+      <h3 style="font-size: 1.2rem; font-weight: 600; color: var(--color-green); margin-bottom: 15px;">Email</h3>
+      <p style="font-size: 1rem; color: var(--color-text);"> 
+        <a href="mailto:contact@jadservices.fr" style="color: var(--color-green); text-decoration: none;">contact@jadservices.fr</a>
+      </p>
+    </div>
+    <div style="max-width: 400px; width: 100%;">
+      <h3 style="font-size: 1.2rem; font-weight: 600; color: var(--color-green); margin-bottom: 15px;">Téléphone</h3>
+      <p style="font-size: 1rem; color: var(--color-text);"> 
+        <a href="tel:+33556789012" style="color: var(--color-green); text-decoration: none;">+33 5 56 78 90 12</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="map" style="padding: 100px 40px; background-color: white;">
+  <h2 class="section-title">Où nous trouver</h2>
+  <div style="max-width: 800px; margin: 0 auto;">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.1234567890123!2d-0.1234567890123!3d44.1234567890123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x123456789012345%3A0xabcdef1234567890!2sJAD%20Services%20Viti%20-%20Expertise%20Viticole%20en%20Gironde%20et%20Charente!5e0!3m2!1sfr!2sfr!4v1700000000000" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  </div>  
 </section>

@@ -4,7 +4,7 @@
     <title><%= content_for(:title) || "Jadservices33" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="Vignoble familial situé en Gironde et Charente, offrant des vins d'exception élaborés avec passion et savoir-faire traditionnel. Découvrez nos cuvées et visitez nos chais.">
-    <meta name="keywords" content="vignoble, Gironde, Charente, vin, viticulture, domaine viticole, vins, chais, dégustation">
+    <meta name="keywords" content="prestataire viticole, vendanges, travaux en vert, taille, ébourgeonnage, palissage, désherbage, protection phytosanitaire, Gironde, Charente, viticulture, services viticoles, travaux mmanuel, domaine viticole, vigneron, vin, terroir, santé des vignes, entretien saisonnier">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Jadservices33">
     <meta name="mobile-web-app-capable" content="yes">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
@@ -29,25 +29,3 @@
     <%= yield %>
   </body>
 </html>
-
-
-<!-- SCROLL ANIMATIONS -->
-<script>
-
-document.addEventListener("turbo:load", () => {
-
-  const elements = document.querySelectorAll('.reveal, .image-block');
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-      }
-    });
-  }, { threshold: 0.2 });
-
-  elements.forEach(el => observer.observe(el));
-
-});
-
-</script>
