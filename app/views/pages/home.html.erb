@@ -119,12 +119,14 @@
 
   <div class="services-grid">
     <% services = [
-      ["01", "Taille de la vigne", "Taille manuelle soignée pour garantir régularité et santé du cep.", "pexels-alex-staudinger-829197-1731834.jpg"],
-      ["02", "Travaux en vert", "Épamprage, palissage, relevage et effeuillage selon l'état des parcelles.", "pexels-luiz-m-santos-250917-760280.jpg"],
-      ["03", "Vendanges", "Équipes organisées pour vendanges manuelles avec cadence maîtrisée.", "pexels-nc-farm-bureau-mark-8877365.jpg"],
-      ["04", "Entretien des parcelles", "Suivi saisonnier et maintien des parcelles propres et opérationnelles.", "pexels-energepic-com-27411-2988355.jpg"],
-      ["05", "Main-d'œuvre qualifiée", "Renfort terrain fiable pour absorber les pics d'activité.", "pexels-luiz-m-santos-250917-760280.jpg"],
-      ["06", "Accompagnement technique", "Appui opérationnel et coordination continue avec l'exploitation.", "pexels-alex-staudinger-829197-1731834.jpg"]
+      ["01", "Taille de la vigne", "Travail essentiel pour structurer la vigne, réguler la production et assurer une bonne qualité du raisin. La taille permet d'équilibrer la vigueur de la plante et de préparer la future récolte.", "pexels-alex-staudinger-829197-1731834.jpg"],
+      ["02", "Tombée des bois", "Opération consistant à retirer les sarments coupés après la taille afin de nettoyer les rangs de vigne et faciliter les travaux suivants dans la parcelle.", "pexels-energepic-com-27411-2988355.jpg"],
+      ["03", "Calage des vignes", "Maintien et repositionnement des pieds de vigne adultes pour garantir leur bon alignement, leur stabilité et une meilleure mécanisation.", "pexels-luiz-m-santos-250917-760280.jpg"],
+      ["04", "Pliage", "Technique qui consiste à attacher les bois de taille sur le fil porteur. Cela favorise une bonne répartition des bourgeons et un développement homogène des rameaux.", "pexels-nc-farm-bureau-mark-8877365.jpg"],
+      ["05", "Épamprage", "Suppression des pousses inutiles sur le tronc et les bras de la vigne. Cette opération permet de concentrer l'énergie sur les rameaux productifs et d'améliorer l'aération.", "pexels-luiz-m-santos-250917-760280.jpg"],
+      ["06", "Levage", "Relevage et maintien des rameaux entre les fils afin d'assurer une bonne exposition au soleil, de limiter les maladies et de faciliter les traitements et la récolte.", "pexels-alex-staudinger-829197-1731834.jpg"],
+      ["07", "Entretien des parcelles", "Suivi saisonnier et maintien des parcelles propres et opérationnelles.", "pexels-energepic-com-27411-2988355.jpg"],
+      ["08", "Main-d'œuvre qualifiée", "Renfort terrain fiable pour absorber les pics d'activité.", "pexels-nc-farm-bureau-mark-8877365.jpg"]
     ] %>
 
     <% services.each do |num, title, desc, image| %>
@@ -258,11 +260,13 @@
           <select id="service" name="service">
             <option value="">Sélectionner une prestation</option>
             <option>Taille de la vigne</option>
-            <option>Travaux en vert</option>
-            <option>Vendanges</option>
-            <option>Entretien</option>
-            <option>Main-d'œuvre</option>
-            <option>Accompagnement technique</option>
+            <option>Tombée des bois</option>
+            <option>Calage des vignes</option>
+            <option>Pliage</option>
+            <option>Épamprage</option>
+            <option>Levage</option>
+            <option>Entretien des parcelles</option>
+            <option>Main-d'œuvre qualifiée</option>
             <option>Plusieurs prestations</option>
           </select>
         </div>
