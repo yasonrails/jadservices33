@@ -208,8 +208,10 @@
 
 
   <body>
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-ring" id="cursorRing"></div>
+    <% unless content_for?(:hide_layout_cursor) %>
+      <div class="cursor" id="cursor"></div>
+      <div class="cursor-ring" id="cursorRing"></div>
+    <% end %>
 
     <!-- NAVBAR -->
     <nav id="navbar">
@@ -224,15 +226,17 @@
 
     <%= yield %>
 
-    <!-- FOOTER -->
-    <footer>
-      <div class="footer-logo">JAD SERVICES 33</div>
-      <div class="footer-info">
-        45 rue des Acacias, 33500 Les Billaux, France<br>
-        RCS : Libourne 951216779<br>
-        jadservice33@gmail.com &mdash; 06 16 72 97 25
-      </div>
-      <div class="footer-copy">&copy; <%= Time.current.year %> JAD Services 33. Tous droits réservés.</div>
-    </footer>
+    <% unless content_for?(:hide_layout_footer) %>
+      <!-- FOOTER -->
+      <footer>
+        <div class="footer-logo">JAD SERVICES 33</div>
+        <div class="footer-info">
+          45 rue des Acacias, 33500 Les Billaux, France<br>
+          RCS : Libourne 951216779<br>
+          jadservice33@gmail.com &mdash; 06 16 72 97 25
+        </div>
+        <div class="footer-copy">&copy; <%= Time.current.year %> JAD Services 33. Tous droits réservés.</div>
+      </footer>
+    <% end %>
   </body>
 </html>
