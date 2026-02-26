@@ -113,38 +113,25 @@
 
 <section class="services" id="services" aria-label="Prestations viticoles">
   <div class="services-header">
-    <h2>Services</h2>
-    <p>Prestations viticoles professionnelles pour domaines exigeants.</p>
+    <h2>Liste des prestations</h2>
+    <p>Interventions viticoles sans grille tarifaire par service.</p>
   </div>
 
-  <div class="services-grid">
-    <% services = [
-      ["01", "Taille de la vigne", "Taille manuelle encadrée pour garantir régularité et santé du cep."],
-      ["02", "Travaux en vert", "Épamprage, palissage, relevage et effeuillage selon l'état de la parcelle."],
-      ["03", "Vendanges", "Équipes organisées pour récoltes manuelles, avec cadence maîtrisée."],
-      ["04", "Entretien", "Suivi saisonnier et maintien de parcelles propres et opérationnelles."],
-      ["05", "Main-d'œuvre", "Renfort qualifié pour absorber les pics d'activité sans dégrader la qualité."],
-      ["06", "Accompagnement technique", "Appui terrain et coordination avec les responsables d'exploitation."]
-    ] %>
+  <div class="services-list-wrap reveal">
+    <ul class="services-list">
+      <li>Taille de la vigne</li>
+      <li>Travaux en vert</li>
+      <li>Vendanges</li>
+      <li>Entretien des parcelles</li>
+      <li>Main-d'œuvre qualifiée</li>
+      <li>Accompagnement technique</li>
+    </ul>
 
-    <% services.each do |num, title, desc| %>
-      <article class="service-card reveal">
-        <div class="service-photo">
-          <%= image_tag "pexels-alex-staudinger-829197-1731834.jpg",
-              alt: title,
-              class: "service-img",
-              loading: "lazy",
-              width: 800,
-              height: 600 %>
-          <div class="service-overlay"></div>
-          <div class="service-content">
-            <span class="service-num"><%= num %></span>
-            <h3><%= title %></h3>
-            <p><%= desc %></p>
-          </div>
-        </div>
-      </article>
-    <% end %>
+    <div class="hourly-rate">
+      <span class="hourly-label">Tarif horaire unique</span>
+      <strong class="hourly-value">XX € / heure</strong>
+      <p class="hourly-note">Tarif ajusté selon la période et la nature de la mission.</p>
+    </div>
   </div>
 </section>
 
