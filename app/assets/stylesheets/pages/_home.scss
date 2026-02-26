@@ -454,35 +454,121 @@ nav.scrolled .nav-cta {
   color: var(--ink-soft);
 }
 
-.services-list-wrap {
-  max-width: 760px;
-  margin: 0 auto;
-  background: #ffffff;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 1.45rem;
-  box-shadow: 0 14px 28px rgba(18, 29, 22, 0.08);
-}
-
-.services-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.services-grid {
   display: grid;
-  gap: 0.65rem;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.5rem;
 }
 
-.services-list li {
-  border: 1px solid rgba(45, 82, 64, 0.18);
-  border-radius: 10px;
-  padding: 0.75rem 0.9rem;
-  font-weight: 600;
-  color: #22362b;
-  background: linear-gradient(180deg, #f8fbf7 0%, #f2f6f1 100%);
+.service-card {
+  position: relative;
+  min-height: 340px;
+  border-radius: 18px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--deep);
+  box-shadow: 0 15px 34px rgba(12, 20, 15, 0.22);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.service-photo {
+  position: absolute;
+  inset: 0;
+}
+
+.service-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+  transition: transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(8, 12, 10, 0.93) 0%, rgba(8, 12, 10, 0.56) 42%, rgba(8, 12, 10, 0.2) 76%, rgba(8, 12, 10, 0.07) 100%);
+  transition: opacity 0.35s ease;
+}
+
+.service-content {
+  position: absolute;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  z-index: 2;
+  display: grid;
+  gap: 0.52rem;
+}
+
+.service-num {
+  width: fit-content;
+  display: inline-flex;
+  padding: 0.3rem 0.56rem;
+  border-radius: 999px;
+  border: 1px solid rgba(205, 167, 75, 0.58);
+  background: rgba(45, 82, 64, 0.72);
+  color: #f3f8f4;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.service-content h3 {
+  margin: 0;
+  color: #f6faf7;
+  font-size: 1.22rem;
+  line-height: 1.18;
+}
+
+.service-content p {
+  margin: 0;
+  color: rgba(241, 247, 243, 0.92);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.service-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--green) 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.38s ease;
+  z-index: 3;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(205, 167, 75, 0.46);
+  box-shadow: 0 24px 42px rgba(10, 16, 13, 0.32);
+}
+
+.service-card:hover .service-img {
+  transform: scale(1.08);
+}
+
+.service-card:hover .service-overlay {
+  opacity: 0.84;
+}
+
+.service-card:hover::after {
+  transform: scaleX(1);
+}
+
+.services-info {
+  margin-top: 1.2rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 0.85rem;
 }
 
 .hourly-rate {
-  margin-top: 1rem;
   border-radius: 12px;
   border: 1px solid rgba(205, 167, 75, 0.55);
   background: #132017;
@@ -501,7 +587,7 @@ nav.scrolled .nav-cta {
 .hourly-value {
   display: block;
   margin-top: 0.35rem;
-  font-size: clamp(1.2rem, 2.3vw, 1.5rem);
+  font-size: clamp(1.25rem, 2.3vw, 1.65rem);
   color: var(--gold);
   font-weight: 800;
 }
@@ -510,6 +596,28 @@ nav.scrolled .nav-cta {
   margin: 0.4rem 0 0;
   color: rgba(228, 237, 231, 0.86);
   font-size: 0.86rem;
+}
+
+.service-admin {
+  border-radius: 12px;
+  border: 1px solid rgba(45, 82, 64, 0.22);
+  background: #ffffff;
+  color: #1d3125;
+  padding: 0.95rem;
+}
+
+.service-admin-label {
+  display: block;
+  font-size: 0.73rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #51685b;
+}
+
+.service-admin p {
+  margin: 0.38rem 0 0;
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
 /* ---------------- TESTIMONIALS ---------------- */
@@ -782,12 +890,30 @@ footer {
     padding: 4.8rem 1rem;
   }
 
-  .services-list-wrap {
-    padding: 1rem;
+  .services-grid {
+    gap: 1.05rem;
   }
 
-  .services-list li {
-    font-size: 0.92rem;
+  .service-card {
+    min-height: 320px;
+  }
+
+  .service-content {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .service-content h3 {
+    font-size: 1.14rem;
+  }
+
+  .service-content p {
+    font-size: 0.9rem;
+  }
+
+  .services-info {
+    grid-template-columns: 1fr;
   }
 
   .form-row {

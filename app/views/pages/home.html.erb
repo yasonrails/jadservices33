@@ -113,24 +113,49 @@
 
 <section class="services" id="services" aria-label="Prestations viticoles">
   <div class="services-header">
-    <h2>Liste des prestations</h2>
-    <p>Interventions viticoles sans grille tarifaire par service.</p>
+    <h2>Prestations viticoles</h2>
+    <p>Interventions terrain en Gironde et Charente, avec équipes qualifiées.</p>
   </div>
 
-  <div class="services-list-wrap reveal">
-    <ul class="services-list">
-      <li>Taille de la vigne</li>
-      <li>Travaux en vert</li>
-      <li>Vendanges</li>
-      <li>Entretien des parcelles</li>
-      <li>Main-d'œuvre qualifiée</li>
-      <li>Accompagnement technique</li>
-    </ul>
+  <div class="services-grid">
+    <% services = [
+      ["01", "Taille de la vigne", "Taille manuelle soignée pour garantir régularité et santé du cep.", "pexels-alex-staudinger-829197-1731834.jpg"],
+      ["02", "Travaux en vert", "Épamprage, palissage, relevage et effeuillage selon l'état des parcelles.", "pexels-luiz-m-santos-250917-760280.jpg"],
+      ["03", "Vendanges", "Équipes organisées pour vendanges manuelles avec cadence maîtrisée.", "pexels-nc-farm-bureau-mark-8877365.jpg"],
+      ["04", "Entretien des parcelles", "Suivi saisonnier et maintien des parcelles propres et opérationnelles.", "pexels-energepic-com-27411-2988355.jpg"],
+      ["05", "Main-d'œuvre qualifiée", "Renfort terrain fiable pour absorber les pics d'activité.", "pexels-luiz-m-santos-250917-760280.jpg"],
+      ["06", "Accompagnement technique", "Appui opérationnel et coordination continue avec l'exploitation.", "pexels-alex-staudinger-829197-1731834.jpg"]
+    ] %>
 
+    <% services.each do |num, title, desc, image| %>
+      <article class="service-card reveal">
+        <div class="service-photo">
+          <%= image_tag image,
+              alt: title,
+              class: "service-img",
+              loading: "lazy",
+              width: 800,
+              height: 600 %>
+          <div class="service-overlay"></div>
+        </div>
+        <div class="service-content">
+          <span class="service-num"><%= num %></span>
+          <h3><%= title %></h3>
+          <p><%= desc %></p>
+        </div>
+      </article>
+    <% end %>
+  </div>
+
+  <div class="services-info reveal">
     <div class="hourly-rate">
-      <span class="hourly-label">Tarif horaire unique</span>
-      <strong class="hourly-value">Sur devis</strong>
-      <p class="hourly-note">Aucun tarif par prestation. Un seul tarif horaire est défini avant intervention.</p>
+      <span class="hourly-label">Tarif horaire</span>
+      <strong class="hourly-value">23 € HT / heure</strong>
+      <p class="hourly-note">Tarif horaire unique appliqué aux prestations.</p>
+    </div>
+    <div class="service-admin">
+      <span class="service-admin-label">Informations</span>
+      <p>RCS : Libourne 951216779</p>
     </div>
   </div>
 </section>
@@ -183,15 +208,23 @@
       <div class="contact-items">
         <div class="reveal reveal-delay-3">
           <span class="contact-item-label">Adresse</span>
-          <div class="contact-item-value">45 Rue des Acacias, 33500 Les Billaux</div>
+          <div class="contact-item-value">45 rue des Acacias<br>33500 Les Billaux</div>
         </div>
         <div class="reveal reveal-delay-4">
-          <span class="contact-item-label">Email</span>
-          <div class="contact-item-value"><a href="mailto:contact@jadservices33.fr">contact@jadservices33.fr</a></div>
+          <span class="contact-item-label">Tarif horaire</span>
+          <div class="contact-item-value">23 € HT / heure</div>
         </div>
         <div class="reveal reveal-delay-5">
+          <span class="contact-item-label">RCS</span>
+          <div class="contact-item-value">Libourne 951216779</div>
+        </div>
+        <div class="reveal">
+          <span class="contact-item-label">Email</span>
+          <div class="contact-item-value"><a href="mailto:jadservice33@gmail.com">jadservice33@gmail.com</a></div>
+        </div>
+        <div class="reveal">
           <span class="contact-item-label">Téléphone</span>
-          <div class="contact-item-value"><a href="tel:+33556789012">+33 5 56 78 90 12</a></div>
+          <div class="contact-item-value"><a href="tel:+33616729725">06 16 72 97 25</a></div>
         </div>
       </div>
     </div>
