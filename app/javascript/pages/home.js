@@ -1,98 +1,221 @@
-  // ── CURSOR
-    const cur = document.getElementById('cursor');
-    const ring = document.getElementById('cursor-ring');
-    let mx=0,my=0,rx=0,ry=0;
-    const isMobile = window.matchMedia('(hover:none)').matches;
-    if(isMobile){ cur.style.display='none'; ring.style.display='none'; document.body.style.cursor='auto'; }
-    document.addEventListener('mousemove', e => {
-      mx=e.clientX; my=e.clientY;
-      cur.style.transform=`translate(${mx-4}px,${my-4}px)`;
-    },{passive:true});
-    (function animRing(){
-      rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
-      ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;
-      requestAnimationFrame(animRing);
-    })();
-    document.querySelectorAll('a,button,.service-card,.testi-card').forEach(el=>{
-      el.addEventListener('mouseenter',()=>ring.classList.add('hov'));
-      el.addEventListener('mouseleave',()=>ring.classList.remove('hov'));
+document.documentElement.classList.add("js-enabled");
+
+let videoTimer = null;
+let cleanupHandlers = [];
+let cursorAnimationId = null;
+
+const registerCleanup = (handler) => {
+  cleanupHandlers.push(handler);
+};
+
+const cleanupHomePage = () => {
+  if (videoTimer) {
+    clearInterval(videoTimer);
+    videoTimer = null;
+  }
+
+  if (cursorAnimationId) {
+    cancelAnimationFrame(cursorAnimationId);
+    cursorAnimationId = null;
+  }
+
+  cleanupHandlers.forEach((handler) => handler());
+  cleanupHandlers = [];
+};
+
+const bindEvent = (target, eventName, handler, options) => {
+  target.addEventListener(eventName, handler, options);
+  registerCleanup(() => target.removeEventListener(eventName, handler, options));
+};
+
+const initCustomCursor = () => {
+  const cursor = document.getElementById("cursor");
+  const ring = document.getElementById("cursor-ring") || document.getElementById("cursorRing");
+  if (!cursor || !ring) return;
+
+  if (window.matchMedia("(hover: none)").matches || window.matchMedia("(pointer: coarse)").matches) {
+    cursor.style.display = "none";
+    ring.style.display = "none";
+    return;
+  }
+
+  let mouseX = 0;
+  let mouseY = 0;
+  let ringX = 0;
+  let ringY = 0;
+
+  const onMouseMove = (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+    cursor.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+  };
+
+  bindEvent(document, "mousemove", onMouseMove, { passive: true });
+
+  const animateRing = () => {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+    ring.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
+    cursorAnimationId = requestAnimationFrame(animateRing);
+  };
+
+  animateRing();
+
+  document.querySelectorAll("a, button, input, select, textarea, .service-card, .testi-card").forEach((element) => {
+    const onEnter = () => ring.classList.add("hov");
+    const onLeave = () => ring.classList.remove("hov");
+    bindEvent(element, "mouseenter", onEnter);
+    bindEvent(element, "mouseleave", onLeave);
+  });
+};
+
+const initNavbar = () => {
+  const nav = document.getElementById("navbar") || document.querySelector("nav");
+  if (!nav) return;
+
+  const onScroll = () => {
+    nav.classList.toggle("scrolled", window.scrollY > 52);
+  };
+
+  onScroll();
+  bindEvent(window, "scroll", onScroll, { passive: true });
+};
+
+const initVideoCarousel = () => {
+  const videos = Array.from(document.querySelectorAll(".hero-video"));
+  const dots = Array.from(document.querySelectorAll(".hero-dot"));
+  if (videos.length === 0) return;
+
+  let currentIndex = Math.max(videos.findIndex((video) => video.classList.contains("active")), 0);
+
+  const activateVideo = (nextIndex) => {
+    if (!videos[nextIndex]) return;
+
+    videos[currentIndex]?.classList.remove("active");
+    dots[currentIndex]?.classList.remove("active");
+    videos[currentIndex]?.pause();
+
+    currentIndex = nextIndex;
+    videos[currentIndex].classList.add("active");
+    dots[currentIndex]?.classList.add("active");
+
+    const currentVideo = videos[currentIndex];
+    if (currentVideo.readyState === 0) currentVideo.load();
+    currentVideo.play().catch(() => {});
+  };
+
+  const restartAutoplay = () => {
+    if (videoTimer) clearInterval(videoTimer);
+    if (videos.length <= 1) return;
+    videoTimer = setInterval(() => {
+      activateVideo((currentIndex + 1) % videos.length);
+    }, 5800);
+  };
+
+  dots.forEach((dot, dotIndex) => {
+    bindEvent(dot, "click", () => {
+      activateVideo(dotIndex);
+      restartAutoplay();
     });
+  });
 
-    // ── NAVBAR
-    const nav = document.getElementById('navbar');
-    window.addEventListener('scroll',()=>{
-      nav.classList.toggle('scrolled', scrollY>60);
-    },{passive:true});
+  activateVideo(currentIndex);
+  restartAutoplay();
+};
 
-    // ── VIDEO CAROUSEL
-    const videos = document.querySelectorAll('.hero-video');
-    const dots = document.querySelectorAll('.hero-dot');
-    let vidIdx = 0;
-    function switchVideo(idx){
-      videos[vidIdx].classList.remove('active');
-      dots[vidIdx].classList.remove('active');
-      vidIdx = idx;
-      videos[vidIdx].classList.add('active');
-      dots[vidIdx].classList.add('active');
-      // Preload & play next video
-      const v = videos[vidIdx];
-      if(v.readyState === 0) v.load();
-      v.play().catch(()=>{});
+const initHeroParallax = () => {
+  const hero = document.querySelector(".hero");
+  const content = document.querySelector("[data-parallax]");
+  if (!hero || !content) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  let ticking = false;
+
+  const updateParallax = () => {
+    const heroRect = hero.getBoundingClientRect();
+    if (heroRect.bottom <= 0) {
+      content.style.transform = "";
+      ticking = false;
+      return;
     }
-    // Auto advance every 6s
-    let vidTimer = setInterval(()=> switchVideo((vidIdx+1) % videos.length), 6000);
-    // Manual dots
-    dots.forEach(dot=>{
-      dot.addEventListener('click',()=>{
-        clearInterval(vidTimer);
-        switchVideo(parseInt(dot.dataset.idx));
-        vidTimer = setInterval(()=> switchVideo((vidIdx+1) % videos.length), 6000);
+
+    const offset = Math.min(window.scrollY * 0.14, 64);
+    content.style.transform = `translate3d(0, ${offset}px, 0)`;
+    ticking = false;
+  };
+
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(updateParallax);
+  };
+
+  bindEvent(window, "scroll", onScroll, { passive: true });
+  updateParallax();
+  registerCleanup(() => {
+    content.style.transform = "";
+  });
+};
+
+const initRevealAnimations = () => {
+  const revealElements = document.querySelectorAll(".reveal");
+  if (revealElements.length === 0) return;
+
+  if (!("IntersectionObserver" in window)) {
+    revealElements.forEach((element) => element.classList.add("visible"));
+    return;
+  }
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
       });
-    });
+    },
+    { threshold: 0.14, rootMargin: "0px 0px -60px 0px" }
+  );
 
-    // ── SCROLL REVEAL
-    const ro = new IntersectionObserver(entries=>{
-      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-    },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-    document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+  revealElements.forEach((element) => revealObserver.observe(element));
+  registerCleanup(() => revealObserver.disconnect());
+};
 
-    // ── COUNTERS
-    const counterData = [
-      {id:'c1', target:20},
-      {id:'c2', target:2},
-      {id:'c3', target:6},
-      {id:'c4', target:100},
-    ];
-    const cr = new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
-        if(!e.isIntersecting||e.target.dataset.done) return;
-        e.target.dataset.done=1;
-        const d = counterData.find(c=>c.id===e.target.id);
-        if(!d) return;
-        let n=0; const step=d.target/40;
-        const t=setInterval(()=>{
-          n=Math.min(n+step,d.target);
-          e.target.textContent=Math.round(n);
-          if(n>=d.target) clearInterval(t);
-        },30);
-      });
-    },{threshold:.5});
-    ['c1','c2','c3','c4'].forEach(id=>{
-      const el=document.getElementById(id);
-      if(el) cr.observe(el);
-    });
+const initContactForm = () => {
+  const form = document.getElementById("contactForm");
+  const submitButton = document.getElementById("submitBtn");
+  if (!form || !submitButton) return;
 
-    // ── FORM
-    function handleForm(e){
-      e.preventDefault();
-      const btn=document.getElementById('submitBtn');
-      btn.textContent='Message envoyé ✓';
-      btn.style.background='#2D5240';
-      btn.disabled=true;
-      setTimeout(()=>{
-        btn.textContent='Envoyer la demande';
-        btn.style.background='';
-        btn.disabled=false;
-        e.target.reset();
-      },3000);
-    }
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    submitButton.textContent = "Demande envoyée";
+    submitButton.disabled = true;
+    submitButton.style.background = "#244334";
+
+    window.setTimeout(() => {
+      submitButton.textContent = "Envoyer la demande";
+      submitButton.disabled = false;
+      submitButton.style.background = "";
+      form.reset();
+    }, 2600);
+  };
+
+  bindEvent(form, "submit", onSubmit);
+};
+
+const initHomePage = () => {
+  if (!document.querySelector(".hero")) return;
+
+  cleanupHomePage();
+  initCustomCursor();
+  initNavbar();
+  initVideoCarousel();
+  initHeroParallax();
+  initRevealAnimations();
+  initContactForm();
+};
+
+document.addEventListener("turbo:load", initHomePage);
+document.addEventListener("DOMContentLoaded", initHomePage);
+document.addEventListener("turbo:before-cache", cleanupHomePage);
+
+if (document.readyState !== "loading") initHomePage();
