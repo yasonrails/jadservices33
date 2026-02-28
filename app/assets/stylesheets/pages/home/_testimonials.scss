@@ -1,0 +1,49 @@
+.testimonials {
+	background: $noir;
+}
+
+.testimonials .section-label { color: $vert-muted; }
+.testimonials h2.display { color: $blanc; }
+
+.testimonials-header { margin-bottom: 68px; }
+
+.testi-card {
+	background: rgba(255,255,255,.03);
+	border: 1px solid rgba(255,255,255,.08);
+	padding: 38px 30px;
+	transition: background .25s ease;
+}
+
+.testi-card:hover {
+	background: rgba(255,255,255,.06);
+}
+
+.testi-stars {
+	margin-bottom: 18px;
+	color: $vert-muted;
+	letter-spacing: .12em;
+	font-size: .74rem;
+}
+
+.testi-text {
+	margin: 0 0 22px;
+	border: 0;
+	padding: 0;
+	color: rgba(255,255,255,.76);
+	font-family: $headers-font;
+	font-size: 1.02rem;
+	line-height: 1.68;
+	font-style: italic;
+}
+
+.testi-author {
+	color: $blanc;
+	font-size: .78rem;
+	font-weight: 500;
+	margin-bottom: 4px;
+}
+
+.testi-role {
+	color: rgba(255,255,255,.4);
+	font-size: .69rem;
+}

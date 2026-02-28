@@ -1,0 +1,28 @@
+.site-footer {
+	background: $noir-soft;
+	padding: 60px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 24px;
+}
+
+.footer-logo {
+	color: $blanc;
+	font-family: $headers-font;
+	font-size: 1.1rem;
+	letter-spacing: .12em;
+}
+
+.footer-info {
+	color: rgba(255,255,255,.32);
+	text-align: center;
+	line-height: 1.8;
+	font-size: .72rem;
+}
+
+.footer-copy {
+	color: rgba(255,255,255,.24);
+	font-size: .68rem;
+}

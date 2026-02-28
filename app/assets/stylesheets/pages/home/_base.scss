@@ -1,0 +1,22 @@
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+	margin: 0;
+	font-family: $body-font;
+	color: $noir;
+	background: $blanc;
+	overflow-x: hidden;
+	cursor: none;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+@media (hover: none) {
+	body { cursor: auto; }
+}
+
+// Sections
+section {
+	position: relative;
+}

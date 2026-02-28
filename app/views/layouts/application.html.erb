@@ -2,206 +2,15 @@
 <html>
   <head>
     <title><%= content_for?(:title) ? "#{content_for(:title)} | JAD Services 33" : "JAD Services 33 — Prestataire Viticole Gironde & Charente | Taille, Vendanges, Travaux en Vert" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <meta name="description" content="JAD Services 33, prestataire viticole professionnel en Gironde et Charente. Taille de vigne, travaux en vert, vendanges et entretien de vignobles. Main-d'œuvre qualifiée — Les Billaux, 33500.">
-    <meta name="keywords" content="prestataire viticole, vendanges, travaux en vert, taille, ébourgeonnage, palissage, désherbage, protection phytosanitaire, Gironde, Charente, viticulture, services viticoles, travaux mmanuel, domaine viticole, vigneron, vin, terroir, santé des vignes, entretien saisonnier">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Jadservices33">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="geo.region" content="FR-33">
-    <meta name="geo.placename" content="Les Billaux, Gironde, France">
-    <meta name="geo.position" content="45.0157;-0.2514">
-    <meta name="ICBM" content="45.0157, -0.2514">
-    <meta name="language" content="fr-FR">
-    <meta name="content-language" content="fr">
-    <meta property="og:type" content="business.business">
-    <meta property="og:locale" content="fr_FR">
-    <meta property="og:site_name" content="JAD Services 33">
-    <meta property="og:title" content="<%= content_for?(:og_title) ? content_for(:og_title) : "JAD Services 33 — Prestataire Viticole Gironde & Charente" %>">
-    <meta property="og:description" content="<%= content_for?(:og_description) ? content_for(:og_description) : "Prestataire viticole spécialisé en Gironde et Charente. Taille de vigne, vendanges, travaux en vert. Main-dœuvre qualifiée depuis plus de 20 ans." %>">
-    <meta property="og:url" content="<%= request.original_url %>">
-    
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="JAD Services 33 — Prestataire Viticole Gironde Charente">
-    <meta property="business:contact_data:street_address" content="45 rue des Acacias">
-    <meta property="business:contact_data:locality" content="Les Billaux">
-    <meta property="business:contact_data:postal_code" content="33500">
-    <meta property="business:contact_data:country_name" content="France">
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="JAD Services 33">
-    <meta name="application-name" content="JAD Services 33">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#1C3A2A">
+    <%= render "layouts/head/meta" %>
     
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
-    <link rel="canonical" href="<%= content_for?(:canonical) ? content_for(:canonical) : request.original_url %>">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "LocalBusiness",
-          "@id": "https://www.jadservices33.fr/#business",
-          "name": "JAD Services 33",
-          "alternateName": "Jade Service 33",
-          "description": "Prestataire viticole professionnel spécialisé dans les travaux manuels en Gironde et Charente. Taille de vigne, travaux en vert, vendanges, entretien de parcelles et main-d'œuvre qualifiée.",
-          "url": "https://www.jadservices33.fr",
-          "telephone": "+33616729725",
-          "email": "jadservice33@gmail.com",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "45 rue des Acacias",
-            "addressLocality": "Les Billaux",
-            "postalCode": "33500",
-            "addressRegion": "Gironde",
-            "addressCountry": "FR"
-          },
-          "taxID": "RCS Libourne 951216779",
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 45.0157,
-            "longitude": -0.2514
-          },
-          "areaServed": [
-            {
-              "@type": "AdministrativeArea",
-              "name": "Gironde",
-              "sameAs": "https://www.wikidata.org/wiki/Q3032"
-            },
-            {
-              "@type": "AdministrativeArea",
-              "name": "Charente",
-              "sameAs": "https://www.wikidata.org/wiki/Q3058"
-            }
-          ],
-          "serviceType": [
-            "Taille de vigne",
-            "Travaux en vert",
-            "Vendanges",
-            "Entretien de vignobles",
-            "Main-d'œuvre viticole",
-            "Accompagnement viticole"
-          ],
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Services viticoles",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Taille de la vigne",
-                  "description": "Taille d'hiver et d'été par des professionnels formés en Gironde et Charente"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Travaux en vert",
-                  "description": "Épamprage, ébourgeonnage, palissage, relevage et effeuillage viticole"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Vendanges",
-                  "description": "Prestataire vendanges manuel en Gironde et Charente"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Entretien des parcelles viticoles",
-                  "description": "Désherbage, travail du sol et entretien saisonnier de vignobles"
-                }
-              }
-            ]
-          },
-          "foundingDate": "2004",
-          "numberOfEmployees": {
-            "@type": "QuantitativeValue",
-            "minValue": 5,
-            "maxValue": 20
-          },
-          "sameAs": [],
-          "image": "https://www.jadservices33.fr/images/og-cover.jpg",
-          "priceRange": "23 € HT / heure",
-          "openingHoursSpecification": [
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-              "opens": "08:00",
-              "closes": "18:00"
-            }
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://www.jadservices33.fr/#website",
-          "url": "https://www.jadservices33.fr",
-          "name": "JAD Services 33",
-          "description": "Prestataire viticole Gironde Charente",
-          "inLanguage": "fr-FR"
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Quelles zones couvre JAD Services 33 ?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "JAD Services 33 intervient en Gironde et en Charente pour tous travaux viticoles : taille, vendanges, travaux en vert et entretien de vignobles."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Quels services viticoles proposez-vous ?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Nous proposons la taille de la vigne, les travaux en vert (épamprage, ébourgeonnage, palissage, relevage), les vendanges manuelles, l'entretien des parcelles et la fourniture de main-d'œuvre viticole qualifiée."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Comment obtenir un devis pour des travaux viticoles ?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Contactez JAD Services 33 par email à jadservice33@gmail.com ou par téléphone au 06 16 72 97 25 pour obtenir un devis personnalisé selon vos besoins viticoles."
-              }
-            }
-          ]
-        }
-      ]
-    }
-    </script>
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://www.google-analytics.com">
-
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <%= render "layouts/head/links" %>
+    <%= render "layouts/head/structured_data" %>
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -215,28 +24,10 @@
     <div class="cursor" id="cursor"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
 
-    <!-- NAVBAR -->
-    <nav id="navbar">
-      <a href="/" class="nav-logo">JAD SERVICES 33</a>
-      <div class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#references">Références</a>
-        <a href="#contact">Contact</a>
-        <a href="#contact" class="nav-cta">Devis</a>
-      </div>
-    </nav>
+    <%= render "layouts/navbar" %>
 
     <%= yield %>
 
-    <!-- FOOTER -->
-    <footer class="site-footer">
-      <div class="footer-logo">JAD SERVICES 33</div>
-      <div class="footer-info">
-        45 rue des Acacias, 33500 Les Billaux, France<br>
-        RCS : Libourne 951216779<br>
-        jadservice33@gmail.com &mdash; 06 16 72 97 25
-      </div>
-      <div class="footer-copy">&copy; <%= Time.current.year %> JAD Services 33. Tous droits réservés.</div>
-    </footer>
+    <%= render "layouts/site_footer" %>
   </body>
 </html>

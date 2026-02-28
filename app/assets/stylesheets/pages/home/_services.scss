@@ -1,0 +1,94 @@
+.services {
+	background: $beige;
+}
+
+.services-inner,
+.testimonials-inner {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.services-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	gap: 24px;
+	margin-bottom: 72px;
+}
+
+.services-header-sub {
+	max-width: 320px;
+	text-align: right;
+}
+
+.services-grid,
+.testi-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2px;
+}
+
+.service-card {
+	background: $blanc;
+	position: relative;
+	overflow: hidden;
+	transform: translateZ(0);
+	transition: transform .25s ease;
+}
+
+.service-card:hover {
+	transform: translateY(-2px);
+}
+
+.service-card::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 3px;
+	background: $vert;
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform .35s ease;
+}
+
+.service-card:hover::after {
+	transform: scaleX(1);
+}
+
+.service-content {
+	position: relative;
+	padding: 40px 40px 46px;
+}
+
+.service-num {
+	position: absolute;
+	top: 32px;
+	right: 34px;
+	color: $text-light;
+	font-family: $headers-font;
+	font-size: .78rem;
+}
+
+.service-icon {
+	display: inline-block;
+	margin-bottom: 16px;
+	font-size: 1.35rem;
+	color: $vert;
+}
+
+.service-content h3 {
+	margin: 0 0 12px;
+	font-family: $headers-font;
+	font-size: 1.42rem;
+	font-weight: 400;
+	color: $noir;
+}
+
+.service-content p {
+	margin: 0;
+	color: $text-muted;
+	font-size: .85rem;
+	line-height: 1.74;
+}

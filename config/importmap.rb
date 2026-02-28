@@ -10,3 +10,4 @@ pin "@popperjs/core", to: "popper.js", preload: true
 
 # Pin premium home page JS
 pin "pages/home", to: "pages/home.js"
+pin_all_from "app/javascript/pages/home", under: "pages/home"

@@ -1,0 +1,37 @@
+#cursor,
+#cursor-ring {
+	position: fixed;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	z-index: 9999;
+}
+
+#cursor {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: $vert;
+	transform: translate(-50%, -50%);
+}
+
+#cursor-ring {
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	border: 1px solid rgba($vert, .9);
+	transform: translate(-50%, -50%);
+	transition: width .25s ease, height .25s ease, opacity .25s ease, background .25s ease;
+}
+
+#cursor-ring.hov {
+	width: 54px;
+	height: 54px;
+	opacity: .45;
+	background: rgba($vert, .06);
+}
+
+@media (hover: none) {
+	#cursor,
+	#cursor-ring { display: none !important; }
+}
