@@ -1,169 +1,175 @@
-// app/javascript/home.js
-// JAD Services 33 — Toutes les interactions
-// À importer dans application.js : import "./home"
+let parallaxRafId = null
+let videoIntervalId = null
 
-document.addEventListener("DOMContentLoaded", function () {
+const applyRevealObserver = () => {
+	const items = document.querySelectorAll(".reveal")
+	if (!items.length) return
 
-  // ═══════════════════════════════════════════════
-  //  CAROUSEL VIDÉO
-  //  Fonctionne avec video_tag Rails (src classique)
-  // ═══════════════════════════════════════════════
-  const videos = Array.from(document.querySelectorAll(".hero-video"));
-  const dots   = Array.from(document.querySelectorAll(".hero-dot"));
-  let current  = 0;
-  let carousel;
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("visible")
+					observer.unobserve(entry.target)
+				}
+			})
+		},
+		{ threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+	)
 
-  if (videos.length > 0) {
+	items.forEach((item) => observer.observe(item))
+}
 
-    function goTo(idx) {
-      // Désactiver l'ancien
-      videos[current].classList.remove("active");
-      if (dots[current]) dots[current].classList.remove("active");
+const initCursor = () => {
+	if (window.matchMedia("(hover: none)").matches) return
 
-      current = (idx + videos.length) % videos.length;
+	const cursor = document.getElementById("cursor")
+	const ring = document.getElementById("cursor-ring")
+	if (!cursor || !ring) return
 
-      // Activer le nouveau
-      videos[current].classList.add("active");
-      if (dots[current]) dots[current].classList.add("active");
+	document.addEventListener("mousemove", (event) => {
+		cursor.style.left = `${event.clientX}px`
+		cursor.style.top = `${event.clientY}px`
+		ring.style.left = `${event.clientX}px`
+		ring.style.top = `${event.clientY}px`
+	})
 
-      // Jouer la vidéo active (nécessaire sur certains navigateurs)
-      const v = videos[current];
-      if (v.readyState === 0) v.load();
-      v.play().catch(() => {});
-    }
+	document.querySelectorAll("a, button, .service-card, .testi-card").forEach((node) => {
+		node.addEventListener("mouseenter", () => ring.classList.add("hov"))
+		node.addEventListener("mouseleave", () => ring.classList.remove("hov"))
+	})
+}
 
-    function startCarousel() {
-      stopCarousel();
-      carousel = setInterval(() => goTo(current + 1), 6000);
-    }
+const initNavbarOnScroll = () => {
+	const nav = document.getElementById("navbar")
+	if (!nav) return
 
-    function stopCarousel() {
-      clearInterval(carousel);
-    }
+	const update = () => {
+		nav.classList.toggle("scrolled", window.scrollY > 20)
+	}
 
-    // Lancer la première vidéo
-    videos[0].play().catch(() => {});
+	update()
+	window.addEventListener("scroll", update)
+}
 
-    // Dots cliquables
-    dots.forEach((dot, i) => {
-      dot.addEventListener("click", () => {
-        stopCarousel();
-        goTo(i);
-        startCarousel();
-      });
-    });
+const initHeroVideos = () => {
+	const videos = Array.from(document.querySelectorAll(".hero-video"))
+	const dots = Array.from(document.querySelectorAll(".hero-dot"))
+	if (!videos.length || !dots.length) return
 
-    startCarousel();
-  }
+	let current = 0
 
+	const setCurrent = (index) => {
+		current = index
+		videos.forEach((video, i) => video.classList.toggle("active", i === index))
+		dots.forEach((dot, i) => dot.classList.toggle("active", i === index))
+	}
 
-  // ═══════════════════════════════════════════════
-  //  CURSOR PERSONNALISÉ
-  // ═══════════════════════════════════════════════
-  const cur  = document.getElementById("cursor");
-  const ring = document.getElementById("cursor-ring");
-  let mx = 0, my = 0, rx = 0, ry = 0;
+	dots.forEach((dot, idx) => {
+		dot.addEventListener("click", () => {
+			setCurrent(idx)
+			if (videoIntervalId) clearInterval(videoIntervalId)
+			startAutoCycle()
+		})
+	})
 
-  if (window.matchMedia("(hover: none)").matches) {
-    if (cur)  cur.style.display  = "none";
-    if (ring) ring.style.display = "none";
-    document.body.style.cursor = "auto";
-  } else {
-    document.addEventListener("mousemove", (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-      if (cur) cur.style.transform = `translate(${mx - 4}px, ${my - 4}px)`;
-    }, { passive: true });
+	const startAutoCycle = () => {
+		videoIntervalId = setInterval(() => {
+			const next = (current + 1) % videos.length
+			setCurrent(next)
+		}, 6200)
+	}
 
-    (function animRing() {
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      if (ring) ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
-      requestAnimationFrame(animRing);
-    })();
+	setCurrent(0)
+	startAutoCycle()
+}
 
-    document.querySelectorAll("a, button, .service-card, .testi-card").forEach((el) => {
-      el.addEventListener("mouseenter", () => ring?.classList.add("hov"));
-      el.addEventListener("mouseleave", () => ring?.classList.remove("hov"));
-    });
-  }
+const initParallax = () => {
+	const hero = document.querySelector(".hero")
+	if (!hero) return
 
+	const heroBg = hero.querySelector(".hero-bg")
+	const heroAccent = hero.querySelector(".hero-accent")
+	const heroContent = hero.querySelector(".hero-content")
 
-  // ═══════════════════════════════════════════════
-  //  NAVBAR — fond au scroll
-  // ═══════════════════════════════════════════════
-  const nav = document.getElementById("navbar");
-  if (nav) {
-    window.addEventListener("scroll", () => {
-      nav.classList.toggle("scrolled", window.scrollY > 60);
-    }, { passive: true });
-  }
+	const animatedSections = [
+		...document.querySelectorAll(".credibility, .services, .testimonials, .contact"),
+	]
 
+	const update = () => {
+		const viewportH = window.innerHeight
+		const heroRect = hero.getBoundingClientRect()
+		const heroProgress = Math.max(-0.3, Math.min(1.4, (viewportH - heroRect.top) / (viewportH + heroRect.height)))
 
-  // ═══════════════════════════════════════════════
-  //  SCROLL REVEAL
-  // ═══════════════════════════════════════════════
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) e.target.classList.add("visible");
-    });
-  }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+		const bgY = heroProgress * 38
+		const accentY = heroProgress * 58
+		const contentY = heroProgress * -16
 
-  document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+		if (heroBg) heroBg.style.transform = `translate3d(0, ${bgY}px, 0) scale(1.05)`
+		if (heroAccent) heroAccent.style.transform = `translate3d(0, ${accentY}px, 0)`
+		if (heroContent) heroContent.style.transform = `translate3d(0, ${contentY}px, 0)`
 
+		animatedSections.forEach((section) => {
+			const rect = section.getBoundingClientRect()
+			if (rect.bottom < 0 || rect.top > viewportH) return
+			const ratio = (viewportH - rect.top) / (viewportH + rect.height)
+			const y = (ratio - 0.5) * 16
+			section.style.transform = `translate3d(0, ${y}px, 0)`
+		})
 
-  // ═══════════════════════════════════════════════
-  //  COMPTEURS ANIMÉS
-  // ═══════════════════════════════════════════════
-  const counterDefs = [
-    { id: "c1", target: 20  },
-    { id: "c2", target: 2   },
-    { id: "c3", target: 6   },
-    { id: "c4", target: 100 },
-  ];
+		parallaxRafId = null
+	}
 
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting || e.target.dataset.done) return;
-      e.target.dataset.done = "1";
+	const requestUpdate = () => {
+		if (parallaxRafId !== null) return
+		parallaxRafId = requestAnimationFrame(update)
+	}
 
-      const def = counterDefs.find((c) => c.id === e.target.id);
-      if (!def) return;
+	update()
+	window.addEventListener("scroll", requestUpdate, { passive: true })
+	window.addEventListener("resize", requestUpdate)
+}
 
-      let n = 0;
-      const step = def.target / 40;
-      const timer = setInterval(() => {
-        n = Math.min(n + step, def.target);
-        e.target.textContent = Math.round(n);
-        if (n >= def.target) clearInterval(timer);
-      }, 30);
-    });
-  }, { threshold: 0.5 });
+window.handleForm = (event) => {
+	event.preventDefault()
+	const button = document.getElementById("submitBtn")
+	if (!button) return
 
-  ["c1", "c2", "c3", "c4"].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) counterObserver.observe(el);
-  });
+	const previous = button.textContent
+	button.disabled = true
+	button.textContent = "Envoyé ✓"
 
+	setTimeout(() => {
+		button.disabled = false
+		button.textContent = previous
+		event.target.reset()
+	}, 1400)
+}
 
-  // ═══════════════════════════════════════════════
-  //  FORMULAIRE CONTACT
-  // ═══════════════════════════════════════════════
-  window.handleForm = function (e) {
-    e.preventDefault();
-    const btn  = document.getElementById("submitBtn");
-    const orig = btn.textContent;
+const initHomePage = () => {
+	if (!document.querySelector(".hero")) return
+	applyRevealObserver()
+	initCursor()
+	initNavbarOnScroll()
+	initHeroVideos()
+	initParallax()
+}
 
-    btn.textContent = "Message envoyé ✓";
-    btn.style.background = "#2D5240";
-    btn.disabled = true;
+document.addEventListener("turbo:load", initHomePage)
+document.addEventListener("DOMContentLoaded", initHomePage)
+window.addEventListener("load", initHomePage)
 
-    setTimeout(() => {
-      btn.textContent     = orig;
-      btn.style.background = "";
-      btn.disabled         = false;
-      e.target.reset();
-    }, 3000);
-  };
+if (document.readyState === "interactive" || document.readyState === "complete") {
+	initHomePage()
+}
 
-});
+document.addEventListener("turbo:before-cache", () => {
+	if (videoIntervalId) {
+		clearInterval(videoIntervalId)
+		videoIntervalId = null
+	}
+	if (parallaxRafId) {
+		cancelAnimationFrame(parallaxRafId)
+		parallaxRafId = null
+	}
+})
