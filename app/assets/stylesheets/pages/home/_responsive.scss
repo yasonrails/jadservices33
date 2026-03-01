@@ -39,9 +39,13 @@
 		max-width: none;
 	}
 
-	.services-grid,
+	.services .services-grid,
 	.testi-grid {
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.services .services-grid {
+		grid-auto-rows: 340px;
 	}
 
 	.site-footer {
@@ -58,6 +62,15 @@
 
 	.form-row {
 		flex-direction: column;
+	}
+
+	.services .services-grid,
+	.testi-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.services .services-grid {
+		grid-auto-rows: 320px;
 	}
 
 	h2.display {

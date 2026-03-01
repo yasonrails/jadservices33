@@ -21,74 +21,138 @@
 	text-align: right;
 }
 
-.services-grid,
-.testi-grid {
+.services .services-grid {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 2px;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	grid-auto-rows: 360px;
+	gap: 10px;
+	align-items: stretch;
 }
 
-.service-card {
-	background: $blanc;
+.services .service-card {
+	background-color: $beige;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 	position: relative;
 	overflow: hidden;
 	transform: translateZ(0);
-	transition: transform .25s ease;
+	transition: transform .55s cubic-bezier(.16,1,.3,1), box-shadow .55s cubic-bezier(.16,1,.3,1), border-color .35s ease;
+	height: auto;
+	isolation: isolate;
+	border-radius: 14px;
+	border: 1px solid rgba(255, 255, 255, .18);
+	box-shadow: 0 18px 38px rgba(13, 13, 11, .18);
 }
 
-.service-card:hover {
-	transform: translateY(-2px);
-}
-
-.service-card::after {
+.services .service-card::before {
 	content: "";
 	position: absolute;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	height: 3px;
-	background: $vert;
-	transform: scaleX(0);
-	transform-origin: left;
-	transition: transform .35s ease;
+	inset: 0;
+	background: linear-gradient(180deg, rgba(0, 0, 0, .24) 0%, rgba(0, 0, 0, .34) 52%, rgba(0, 0, 0, .66) 100%);
+	z-index: 0;
+	transition: opacity .25s ease;
 }
 
-.service-card:hover::after {
-	transform: scaleX(1);
-}
-
-.service-content {
-	position: relative;
-	padding: 40px 40px 46px;
-}
-
-.service-num {
+.services .service-card::after {
+	content: "";
 	position: absolute;
-	top: 32px;
-	right: 34px;
-	color: $text-light;
+	inset: 0;
+	background: linear-gradient(110deg, rgba(255, 255, 255, .22) -20%, rgba(255, 255, 255, 0) 36%);
+	opacity: .32;
+	pointer-events: none;
+	z-index: 0;
+	transition: opacity .35s ease;
+}
+
+.services .service-card:hover {
+	transform: translateY(-8px) scale(1.01);
+	box-shadow: 0 26px 48px rgba(13, 13, 11, .26);
+	border-color: rgba(255, 255, 255, .34);
+}
+
+.services .service-card:hover::before {
+	opacity: .54;
+}
+
+.services .service-card:hover::after {
+	opacity: .45;
+}
+
+.services .service-card.reveal {
+	opacity: 0;
+	transform: translateY(32px) scale(.985);
+	transform-origin: 50% 100%;
+	will-change: transform, opacity;
+	transition: opacity .5s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1), box-shadow .55s cubic-bezier(.16,1,.3,1), border-color .35s ease;
+}
+
+.services .service-card.reveal.visible {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+	animation: serviceCardReveal .5s cubic-bezier(.16,1,.3,1) both;
+	animation-delay: var(--card-delay, 0s);
+}
+
+.services .service-content {
+	position: relative;
+	z-index: 1;
+	padding: 32px 30px 30px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.services .service-num {
+	position: absolute;
+	top: 18px;
+	right: 18px;
+	color: rgba(255, 255, 255, .88);
 	font-family: $headers-font;
-	font-size: .78rem;
+	font-size: .72rem;
+	letter-spacing: .08em;
+	padding: 6px 10px;
+	background: rgba(13, 13, 11, .4);
+	border: 1px solid rgba(255, 255, 255, .24);
+	border-radius: 999px;
 }
 
-.service-icon {
-	display: inline-block;
-	margin-bottom: 16px;
-	font-size: 1.35rem;
-	color: $vert;
-}
-
-.service-content h3 {
+.services .service-content h3 {
 	margin: 0 0 12px;
 	font-family: $headers-font;
-	font-size: 1.42rem;
+	font-size: 1.5rem;
 	font-weight: 400;
-	color: $noir;
+	color: rgba(255, 255, 255, .98);
+	line-height: 1.15;
+	text-wrap: balance;
+	text-shadow: 0 2px 14px rgba(0, 0, 0, .38);
 }
 
-.service-content p {
+.services .service-content p {
 	margin: 0;
-	color: $text-muted;
-	font-size: .85rem;
-	line-height: 1.74;
+	color: rgba(255, 255, 255, .94);
+	font-size: .94rem;
+	line-height: 1.55;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, .34);
+	display: -webkit-box;
+	line-clamp: 5;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+@keyframes serviceCardReveal {
+	0% {
+		opacity: 0;
+		transform: translateY(32px) scale(.985) rotateX(6deg);
+	}
+	65% {
+		opacity: 1;
+		transform: translateY(-2px) scale(1.003) rotateX(0deg);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
 }
