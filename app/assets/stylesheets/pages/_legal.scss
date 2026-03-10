@@ -1,0 +1,457 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Cookie consent modal — design premium aligné avec le reste du site
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Overlay backdrop
+#cookie-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba($noir, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  pointer-events: none;
+  transition: background 0.45s ease, backdrop-filter 0.45s ease;
+
+  &.cookie-overlay--visible {
+    background: rgba($noir, 0.62);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    pointer-events: auto;
+
+    .cookie-modal {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  &.cookie-overlay--hiding {
+    animation: cookieOverlayOut 0.35s ease forwards;
+
+    .cookie-modal {
+      animation: cookieModalOut 0.3s ease forwards;
+    }
+  }
+}
+
+// Modal card
+.cookie-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: $noir-soft;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(212, 175, 55, 0.12);
+  overflow: hidden;
+  isolation: isolate;
+  opacity: 0;
+  transform: translateY(24px) scale(0.97);
+  transition:
+    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+
+  // Or gold en haut — signature du site
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, $gold 40%, $gold 60%, transparent 100%);
+    z-index: 2;
+  }
+}
+
+// Grain texture — comme le hero
+.cookie-modal__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 3px 3px;
+  mix-blend-mode: soft-light;
+  opacity: 0.5;
+}
+
+// Glow bordeaux ambiance
+.cookie-modal__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 80% 20%, rgba(92, 34, 52, 0.22), transparent 60%);
+}
+
+// Corps principal
+.cookie-modal__body-wrap {
+  position: relative;
+  z-index: 1;
+  padding: 36px 36px 28px;
+}
+
+// Icône cookie stylisée
+.cookie-modal__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba($gold, 0.1);
+  border: 1px solid rgba($gold, 0.2);
+  color: $gold;
+  margin-bottom: 22px;
+}
+
+// Eyebrow
+.cookie-modal__eyebrow {
+  font-family: $body-font;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $gold;
+  margin-bottom: 10px;
+}
+
+// Titre
+.cookie-modal__title {
+  font-family: $headers-font;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: $blanc;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+
+// Description
+.cookie-modal__desc {
+  font-family: $body-font;
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.52);
+  margin-bottom: 20px;
+}
+
+// Lien "En savoir plus"
+.cookie-modal__learn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: $body-font;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  text-decoration: none;
+  transition: color 0.2s;
+
+  svg {
+    transition: transform 0.2s;
+  }
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.75);
+
+    svg {
+      transform: translate(2px, -2px);
+    }
+  }
+}
+
+// Zone boutons
+.cookie-modal__actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 10px;
+  padding: 20px 36px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+// Boutons
+.cookie-modal__btn {
+  flex: 1;
+  font-family: $body-font;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 13px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &--accept {
+    background: $vert;
+    color: $blanc;
+    border-color: $vert;
+
+    &:hover {
+      background: $vert-light;
+      border-color: $vert-light;
+    }
+  }
+
+  &--decline {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.38);
+    border-color: rgba(255, 255, 255, 0.12);
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.75);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+// Animations de fermeture
+@keyframes cookieOverlayOut {
+  to {
+    background: rgba($noir, 0);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
+}
+
+@keyframes cookieModalOut {
+  to {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Pages légales (mentions légales, politique de confidentialité)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.legal-page {
+  background: $beige;
+  min-height: 100vh;
+  padding: 120px 40px 100px;
+}
+
+.legal-container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.legal-header {
+  margin-bottom: 56px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid $beige-mid;
+}
+
+.legal-eyebrow {
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: $vert-muted;
+  margin-bottom: 14px;
+}
+
+.legal-title {
+  font-family: $headers-font;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 400;
+  color: $noir;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.legal-intro {
+  color: $text-muted;
+  font-size: 0.92rem;
+  line-height: 1.85;
+  margin-bottom: 48px;
+}
+
+.legal-section {
+  margin-bottom: 44px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid $beige-mid;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  h2 {
+    font-family: $headers-font;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: $vert;
+    margin-bottom: 18px;
+    letter-spacing: 0.02em;
+  }
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: $body-font;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: $text-muted;
+    margin: 28px 0 14px;
+  }
+
+  p, li {
+    color: $noir;
+    font-size: 0.88rem;
+    line-height: 1.9;
+  }
+
+  ul {
+    padding-left: 18px;
+    margin: 12px 0;
+
+    li {
+      margin-bottom: 8px;
+    }
+  }
+
+  a {
+    color: $vert;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover { color: $vert-light; }
+  }
+
+  code {
+    background: $beige-mid;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: $bordeaux;
+    font-variant-ligatures: none;
+  }
+}
+
+.legal-badge {
+  display: inline-block;
+  font-family: $body-font;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba($vert, 0.1);
+  color: $vert;
+  border: 1px solid rgba($vert, 0.2);
+  border-radius: 100px;
+  padding: 2px 8px;
+  vertical-align: middle;
+}
+
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba($noir, 0.05);
+
+  th {
+    background: $vert;
+    color: $blanc;
+    font-weight: 600;
+    text-align: left;
+    padding: 11px 16px;
+    letter-spacing: 0.06em;
+    font-size: 0.75rem;
+  }
+
+  td {
+    padding: 11px 16px;
+    border-bottom: 1px solid $beige-mid;
+    color: $noir;
+    line-height: 1.5;
+    background: $blanc;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) td {
+    background: $beige;
+  }
+}
+
+.legal-footer {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid $beige-mid;
+  font-size: 0.75rem;
+  color: $text-light;
+  font-style: italic;
+
+  a {
+    color: $vert;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 600;
+
+    &:hover { text-decoration: underline; }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Footer — liens légaux
+// ─────────────────────────────────────────────────────────────────────────────
+
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-legal__sep {
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 0.6rem;
+}
+
+.footer-legal__link {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.66rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  &--btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: $body-font;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}

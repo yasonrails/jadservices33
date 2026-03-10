@@ -18,8 +18,9 @@ const applyServiceGridStagger = () => {
     const columnCount = getGridColumnCount(gridElement)
 
     cards.forEach((cardElement, index) => {
-      const columnIndex = index % columnCount
-      const delay = columnIndex * 0.03
+      const colIndex = index % columnCount
+      const rowIndex = Math.floor(index / columnCount)
+      const delay = rowIndex * 0.12 + colIndex * 0.09
       cardElement.style.setProperty("--card-delay", `${delay.toFixed(2)}s`)
     })
   })

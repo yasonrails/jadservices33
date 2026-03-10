@@ -1,28 +1,49 @@
 .site-footer {
-	background: $noir-soft;
-	padding: 60px;
+	background: $beige;
+	border-top: 1px solid $beige-mid;
+	padding: 28px 60px;
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
 	flex-wrap: wrap;
-	gap: 24px;
 }
 
 .footer-logo {
-	color: $blanc;
+	color: $noir;
 	font-family: $headers-font;
-	font-size: 1.1rem;
-	letter-spacing: .12em;
+	font-size: 1rem;
+	letter-spacing: .14em;
+	flex-shrink: 0;
 }
 
 .footer-info {
-	color: rgba(255,255,255,.32);
+	color: $text-light;
+	font-size: .7rem;
+	line-height: 1.6;
+	font-style: normal;
 	text-align: center;
-	line-height: 1.8;
-	font-size: .72rem;
+	flex: 1;
+
+	a {
+		color: $text-muted;
+		text-decoration: none;
+		transition: color .2s;
+
+		&:hover { color: $vert; }
+	}
 }
 
 .footer-copy {
-	color: rgba(255,255,255,.24);
-	font-size: .68rem;
+	color: $text-light;
+	font-size: .66rem;
+	flex-shrink: 0;
+
+	a {
+		color: $text-light;
+		text-decoration: none;
+		transition: color .2s;
+
+		&:hover { color: $vert; }
+	}
 }

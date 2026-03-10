@@ -49,10 +49,13 @@
 	}
 
 	.site-footer {
-		padding: 40px 28px;
+		padding: 20px 28px;
 		flex-direction: column;
 		text-align: center;
+		gap: 10px;
 	}
+
+	.footer-info { flex: none; }
 }
 
 @media (max-width: 620px) {

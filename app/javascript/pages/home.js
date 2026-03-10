@@ -5,6 +5,14 @@ import { initHeroVideos } from "pages/home/videos"
 import { initParallax } from "pages/home/parallax"
 import { registerFormHandler } from "pages/home/form"
 
+const initScrollTop = () => {
+  const btn = document.querySelector(".scroll-top")
+  if (!btn) return () => {}
+  const onScroll = () => btn.classList.toggle("visible", window.scrollY > 400)
+  window.addEventListener("scroll", onScroll, { passive: true })
+  return () => window.removeEventListener("scroll", onScroll)
+}
+
 let teardownCallbacks = []
 
 const cleanupHomePage = () => {
@@ -24,6 +32,7 @@ const initHomePage = () => {
 		initNavbarOnScroll(),
 		initHeroVideos(),
 		initParallax(),
+		initScrollTop(),
 	].filter(Boolean)
 }
 

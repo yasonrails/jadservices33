@@ -1,9 +1,14 @@
 <footer class="site-footer">
-  <div class="footer-logo">JAD SERVICES 33</div>
-  <div class="footer-info">
-    45 rue des Acacias, 33500 Les Billaux, France<br>
-    RCS : Libourne 951216779<br>
-    jadservice33@gmail.com &mdash; 06 16 72 97 25
-  </div>
-  <div class="footer-copy">&copy; <%= Time.current.year %> JAD Services 33. Tous droits réservés.</div>
+  <span class="footer-logo">JAD SERVICES 33</span>
+  <address class="footer-info">
+    45 rue des Acacias, 33500 Les Billaux &nbsp;&middot;&nbsp;
+    RCS Libourne 951&thinsp;216&thinsp;779 &nbsp;&middot;&nbsp;
+    <a href="mailto:jadservice33@gmail.com">jadservice33@gmail.com</a> &nbsp;&middot;&nbsp;
+    <a href="tel:+33616729725">06 16 72 97 25</a>
+  </address>
+  <p class="footer-copy">
+    &copy; <%= Time.current.year %> JAD Services 33 &nbsp;&middot;&nbsp;
+    <%= link_to "Mentions légales", mentions_legales_path %> &nbsp;&middot;&nbsp;
+    <%= link_to "Confidentialité", politique_confidentialite_path %>
+  </p>
 </footer>

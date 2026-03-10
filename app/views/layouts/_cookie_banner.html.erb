@@ -1,0 +1,49 @@
+<div id="cookie-overlay"
+     data-controller="cookie-consent"
+     data-cookie-consent-target="overlay"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="cookie-title"
+     aria-describedby="cookie-desc">
+
+  <div class="cookie-modal" data-cookie-consent-target="modal">
+
+    <%# Texture & ambiance — même style que les cartes services %>
+    <div class="cookie-modal__grain" aria-hidden="true"></div>
+    <div class="cookie-modal__glow"  aria-hidden="true"></div>
+
+    <div class="cookie-modal__body-wrap">
+      <div class="cookie-modal__icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/>
+          <path d="M8.5 8.5v.01M16 15.5v.01M12 12v.01"/>
+        </svg>
+      </div>
+
+      <p class="cookie-modal__eyebrow" id="cookie-eyebrow">Confidentialité</p>
+      <h2 class="cookie-modal__title" id="cookie-title">Ce site utilise des cookies</h2>
+
+      <p class="cookie-modal__desc" id="cookie-desc">
+        Seuls des cookies strictement nécessaires au fonctionnement du site sont utilisés
+        (sécurité de session, protection CSRF). Aucun traçage sans votre accord.
+      </p>
+
+      <%= link_to politique_confidentialite_path, class: "cookie-modal__learn" do %>
+        En savoir plus
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+      <% end %>
+    </div>
+
+    <div class="cookie-modal__actions">
+      <button class="cookie-modal__btn cookie-modal__btn--accept"
+              data-action="click->cookie-consent#accept">
+        Accepter
+      </button>
+      <button class="cookie-modal__btn cookie-modal__btn--decline"
+              data-action="click->cookie-consent#decline">
+        Refuser
+      </button>
+    </div>
+
+  </div>
+</div>

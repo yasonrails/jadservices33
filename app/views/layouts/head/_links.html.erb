@@ -3,13 +3,11 @@
 <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
 <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-<link rel="icon" href="/icon.png" type="image/png">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/icon.png">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+<link rel="shortcut icon" href="/icon.png" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="https://www.google-analytics.com">
+<%# Bunny Fonts — hébergeur EU, conforme RGPD (remplace Google Fonts) %>
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
 
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">

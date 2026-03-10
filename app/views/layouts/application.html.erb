@@ -20,7 +20,7 @@
   </head>
 
 
-  <body>
+  <body id="top">
     <div class="cursor" id="cursor"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
 
@@ -29,5 +29,9 @@
     <%= yield %>
 
     <%= render "layouts/site_footer" %>
+    <%= render "layouts/cookie_banner" %>
+    <a href="#top" class="scroll-top" aria-label="Retour en haut de page">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+    </a>
   </body>
 </html>

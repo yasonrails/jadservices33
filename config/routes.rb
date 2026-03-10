@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get "pages/home"
+  get "mentions-legales", to: "pages#mentions_legales", as: :mentions_legales
+  get "politique-de-confidentialite", to: "pages#politique_confidentialite", as: :politique_confidentialite
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root to: "pages#home"
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
